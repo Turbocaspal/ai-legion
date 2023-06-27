@@ -1,0 +1,23 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Ask for user input
+num_agents = input('Wieviele Agent"rln dürfen es denn sein, der Herr?: ')
+model_num = input('Sehr schön! Und sollen das GPT3er oder 4er Agenten sein? Nummer genügt: ')
+agent_delay = input('Und wie viele Sekunden sollen die Agenten warten? ')
+
+# Map the input to the model name
+model_map = {'3': 'gpt-3.5-turbo', '4': 'gpt-4'}
+model = model_map.get(model_num, 'gpt-3.5-turbo')
+
+# Construct the command
+command = f'npm run start {num_agents} {model}'
+
+# Set the agent delay in the environment
+os.environ['AGENT_DELAY'] = str(int(agent_delay) * 1000)
+
+# Execute the command
+os.system(command)
